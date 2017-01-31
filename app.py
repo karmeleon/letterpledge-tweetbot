@@ -37,7 +37,6 @@ def main():
 	# use a heroku environment variable if available
 	try:
 		db_string = os.environ['DATABASE_URL']
-		urlparse.uses_netloc.append("postgres")
 		url = urlparse(db_string)
 		pg_con = psycopg2.connect(
 			database=url.path[1:],
