@@ -87,3 +87,6 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# don't commit the settings-dev file, it contains plaintext credentials
+settings-dev.ini
