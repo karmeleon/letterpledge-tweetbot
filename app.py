@@ -21,7 +21,7 @@ def main():
 				try:
 					config['TwitterAPI'] = os.environ[config['TwitterAPI'][key]]
 				except KeyError:
-					print('Missing environment var {}, fix your config dammit'.format(key))
+					print('Missing environment var {}, fix your config dammit'.format(config['TwitterAPI'][key]))
 					exit(1)
 
 	# get the Twitter API going
