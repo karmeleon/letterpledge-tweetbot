@@ -19,7 +19,7 @@ def main():
 			# instead of reading it literally
 			for key in config['TwitterAPI']:
 				try:
-					config['TwitterAPI'] = os.environ[config['TwitterAPI'][key]]
+					config['TwitterAPI'][key] = os.environ[config['TwitterAPI'][key]]
 				except KeyError:
 					print('Missing environment var {}, fix your config dammit'.format(config['TwitterAPI'][key]))
 					exit(1)
