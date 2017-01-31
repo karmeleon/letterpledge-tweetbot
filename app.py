@@ -9,16 +9,20 @@ def main():
 	# read the dev config file if it exists
 	config = ConfigParser()
 	config.read('settings-dev.ini')
-	if not config:
-		config = ConfigParser.read('settings.ini')
-		if not config:
+	if not config.sections():
+		config.read('settings.ini')
+		if not config.sections():
 			print('No settings file found, create settings.ini in this directory')
 			exit()
 		else:
 			# this is the prod file, get the environment variables
 			# instead of reading it literally
 			for key in config['TwitterAPI']:
-				config['TwitterAPI'] = os.environ[config['TwitterAPI'][key]]
+				try:
+					config['TwitterAPI'] = os.environ[config['TwitterAPI'][key]]
+				except KeyError:
+					print('Missing environment var {}, fix your config dammit'.format(key))
+					exit(1)
 
 	# get the Twitter API going
 	twitter_section = config['TwitterAPI']
