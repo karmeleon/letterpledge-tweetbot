@@ -63,7 +63,7 @@ def main():
 		if not incoming_tweet['user']['id'] == config['General']['TrumpTwitterID']:
 			print('Got Trump tweet')
 			# check for dupes, even though it shouldn't happen
-			pg_cur.execute('SELECT * FROM tweets WHERE (twitter_id = %s)', (incoming_tweet['id'],))
+			pg_cur.execute('SELECT * FROM tweets WHERE (twitter_id::text = %s::text)', (incoming_tweet['id'],))
 			possible_dupe = pg_cur.fetchone()
 			if not possible_dupe:
 				print('And it\'s unique!')
