@@ -60,7 +60,7 @@ def main():
 	tweets = api.request('statuses/filter', {'follow': config['General']['TrumpTwitterID']})
 	print('Now listening for tweets')
 	for incoming_tweet in tweets:
-		if incoming_tweet['user']['id'] == config['General']['TrumpTwitterID']:
+		if not incoming_tweet['user']['id'] == config['General']['TrumpTwitterID']:
 			print('Got Trump tweet')
 			# check for dupes, even though it shouldn't happen
 			pg_cur.execute('SELECT * FROM tweets WHERE (twitter_id = %s)', (incoming_tweet['id'],))
