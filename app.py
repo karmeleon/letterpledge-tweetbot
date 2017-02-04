@@ -1,4 +1,4 @@
-import psycopg2, os, datetime, signal, sys
+import psycopg2, os, datetime, signal, sys, html
 from urllib.parse import urlparse
 from TwitterAPI import TwitterAPI
 from configparser import ConfigParser
@@ -67,6 +67,8 @@ def main():
 			possible_dupe = pg_cur.fetchone()
 			if not possible_dupe:
 				print('And it\'s unique!')
+				# unescape HTML characters
+				incoming_tweet['text'] = html.unescape(incoming_tweet['text'])
 				pg_cur.execute('INSERT INTO tweets (text, length, date, created_at, updated_at, twitter_id) VALUES (%s, %s, %s, %s, %s, %s)', (
 					incoming_tweet['text'],
 					len(incoming_tweet['text']),
